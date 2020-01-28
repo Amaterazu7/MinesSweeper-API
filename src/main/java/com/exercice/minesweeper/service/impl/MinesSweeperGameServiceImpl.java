@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Slf4j
 @Service
 public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
@@ -44,19 +46,28 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
 
     @Override
     public MinesSweeperGame getGameByUserName(String userName) {
+        validateUserName(userName);
         return minesSweeperGameRepository.findById(userName)
                 .orElseThrow(() -> new MinesSweeperException(
-                        String.format(":: Service ERROR :: There's no game for userName::", userName)
+                        String.format(":: Service ERROR :: There's no current game for this userName::", userName)
                 ));
+    }
+
+    private void validateUserName(final String userName){
+        if(Objects.isNull(userName)){
+            throw new MinesSweeperException("UserName can not be NULL");
+        }
     }
 
     @Override
     public MinesSweeperPlayRequest playMinesSweeper(String userName, MinesSweeperPlayRequest playRequest) {
+        validateUserName(userName);
         return null;
     }
 
     @Override
     public MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move) {
+        validateUserName(userName);
         return null;
     }
 
