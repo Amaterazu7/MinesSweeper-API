@@ -1,1 +1,15 @@
-/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercice/minesweeper/MinesweeperApplication.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/MoveType.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/MinesSweeperRequest.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/MinesweeperApplication.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/config/MongoConfig.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/MinesSweeperGame.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/exception/MinesSweeperException.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/service/impl/MinesSweeperGameServiceImpl.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/repository/MinesSweeperGameRepository.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/MinesSweeperBoard.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/BaseModel.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/Square.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/model/MinesSweeperPlayRequest.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/service/MinesSweeperGameService.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/controller/MinesSweeperGameController.java
+/Users/evxqw/Workstation/Exercices/MinesSweeper-API/src/main/java/com/exercise/minesweeper/config/SwaggerConfig.java
