@@ -6,18 +6,25 @@ import com.exercise.minesweeper.model.MinesSweeperPlayRequest;
 import com.exercise.minesweeper.model.MinesSweeperRequest;
 import com.exercise.minesweeper.model.MoveType;
 import com.exercise.minesweeper.service.MinesSweeperGameService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
+@Api(value="MinesWeeper Game Controller", description="Let's start playing the MinesWeeper game")
 @RestController
-@RequestMapping("/minesweeper")
+@Validated
+@Slf4j
+@RequestMapping("/minesweeper/api")
 public class MinesSweeperGameController {
     private final MinesSweeperGameService minesSweeperGameService;
 
