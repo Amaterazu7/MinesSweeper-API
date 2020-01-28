@@ -7,9 +7,11 @@ import com.exercice.minesweeper.model.MinesSweeperRequest;
 import com.exercice.minesweeper.model.MoveType;
 import com.exercice.minesweeper.repository.MinesSweeperGameRepository;
 import com.exercice.minesweeper.service.MinesSweeperGameService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     private final MinesSweeperGameRepository minesSweeperGameRepository;
@@ -22,16 +24,30 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     @Override
     public MinesSweeperGame createMinesSweeperGame(MinesSweeperRequest minesSweeperRequest) {
         try {
+            return persistMinesSweeperGame(
+                    new MinesSweeperGame(
+                            minesSweeperRequest.getRows(),
+                            minesSweeperRequest.getColumns(),
+                            minesSweeperRequest.getMines(),
+                            minesSweeperRequest.getUserName()
+                    )
+            );
 
-            return null;
         } catch(Exception ex) {
-            throw new MinesSweeperException(String.format("ERROR :: Error creating a new game for username = ", minesSweeperRequest.getUserName()), ex);
+            throw new MinesSweeperException(String.format("ERROR :: Error creating a new game for userName = ", minesSweeperRequest.getUserName()), ex);
         }
+    }
+
+    private MinesSweeperGame persistMinesSweeperGame(MinesSweeperGame minesSweeperGame) {
+        return minesSweeperGameRepository.save(minesSweeperGame);
     }
 
     @Override
     public MinesSweeperGame getGameByUserName(String userName) {
-        return null;
+        return minesSweeperGameRepository.findById(userName)
+                .orElseThrow(() -> new MinesSweeperException(
+                        String.format(":: Service ERROR :: There's no game for userName::", userName)
+                ));
     }
 
     @Override

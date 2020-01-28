@@ -10,4 +10,7 @@ public class MinesSweeperRequest {
     private int rows, columns, mines;
 
     public String getUserName() { return userName; }
+    public int getRows() { return rows; }
+    public int getColumns() { return columns; }
+    public int getMines() { return mines; }
 }
