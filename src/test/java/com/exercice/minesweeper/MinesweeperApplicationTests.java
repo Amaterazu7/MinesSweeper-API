@@ -12,5 +12,4 @@ public class MinesweeperApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
