@@ -44,7 +44,7 @@ public class MinesSweeperGameController {
         }
     }
 
-    @PostMapping(value = "/game/{userName}",  consumes = "application/json")
+    @PostMapping(value = "/playGame/{userName}",  consumes = "application/json")
     public ResponseEntity playGame(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
         try {
             // Given the userName in the url path, execute the movement with row, column to that game.
