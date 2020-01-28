@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel(description = "MinesSweeperBoard Class.")
+@ApiModel(description = "Class MinesSweeperBoard.")
 @Document
 @Getter
 @Setter
@@ -31,7 +31,33 @@ public class MinesSweeperBoard extends BaseModel {
 
     private static List<Square> launchSquares(int columnsQuantity, int rowsQuantity) {
         List<Square> squares = new ArrayList<>();
-
+        for (int row=0; row<columnsQuantity; row++) {
+            for (int column=0; column<rowsQuantity; column++) {
+                squares.add(new Square(row, column));
+            }
+        }
         return squares;
     }
+
+    public Square getSquare(int row, int column) {
+        return this.squares.get(row * this.rowsQuantity + column);
+    }
+
+    public List<Square> getSquares() {
+        return new ArrayList<>(this.squares);
+    }
+
+    public int getColumnsQuantity() {
+        return columnsQuantity;
+    }
+
+    public int getRowsQuantity() {
+        return rowsQuantity;
+    }
+
+    /*
+    public List<Square> getNeighbors(Square square) {
+
+    }
+    */
 }

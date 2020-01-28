@@ -2,7 +2,9 @@ package com.exercice.minesweeper.service.impl;
 
 import com.exercice.minesweeper.exception.MinesSweeperException;
 import com.exercice.minesweeper.model.MinesSweeperGame;
+import com.exercice.minesweeper.model.MinesSweeperPlayRequest;
 import com.exercice.minesweeper.model.MinesSweeperRequest;
+import com.exercice.minesweeper.model.MoveType;
 import com.exercice.minesweeper.repository.MinesSweeperGameRepository;
 import com.exercice.minesweeper.service.MinesSweeperGameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,15 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     public MinesSweeperGame getGameByUserName(String userName) {
         return null;
     }
+
+    @Override
+    public MinesSweeperPlayRequest playMinesSweeper(String userName, MinesSweeperPlayRequest playRequest) {
+        return null;
+    }
+
+    @Override
+    public MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move) {
+        return null;
+    }
+
 }

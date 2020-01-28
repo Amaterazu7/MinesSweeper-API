@@ -7,7 +7,7 @@ import lombok.Data;
 @ApiModel(description = "MinesSweeperRequest Class. ")
 public class MinesSweeperRequest {
     private String userName;
-    private int rows, cols, mines;
+    private int rows, columns, mines;
 
     public String getUserName() { return userName; }
 }

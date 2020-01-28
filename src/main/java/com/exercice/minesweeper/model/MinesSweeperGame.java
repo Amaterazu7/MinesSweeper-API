@@ -6,8 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+/*
+ * An MinesSweeperGame have only one MinesSweeperBoard and int count of moves.
+ * The user can configure the game setting the value of rows, cols and mines
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel(description = "MinesSweeperGame Class.")
+@ApiModel(description = "Class MinesSweeperGame.")
 @Document
 @Getter
 @Setter
@@ -22,19 +29,26 @@ public class MinesSweeperGame extends BaseModel {
         this.userName = userName;
         this.moves = 0;
         this.isPaused = false;
+        setMinesOnBoard(totalAmountMines);
     }
 
     /*
-        if (totalAmountMines > rows * columns) {
-            return "There are to many mines for this board.";
-        }
-    */
+     * Sets the total amount of mines given by the user and put it randomly in that square position
+     */
+    private void setMinesOnBoard(int mines) {
+        new ArrayList<>(minesSweeperBoard.getSquares())
+                .stream()
+                .limit(mines)
+                .forEach(Square::setMine);
+        Collections.shuffle(minesSweeperBoard.getSquares());
+    }
+
     public MinesSweeperBoard getMinesSweeperBoard() {
         return minesSweeperBoard;
     }
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {
@@ -42,7 +56,11 @@ public class MinesSweeperGame extends BaseModel {
     }
 
     public int getMoves() {
-        return moves;
+        return this.moves;
+    }
+
+    private void increaseMoves() {
+        this.moves++;
     }
 
     public void setMoves(int moves) {
