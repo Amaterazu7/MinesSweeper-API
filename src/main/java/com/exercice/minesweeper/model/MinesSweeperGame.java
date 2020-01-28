@@ -17,4 +17,43 @@ public class MinesSweeperGame extends BaseModel {
     private int moves;
     private boolean isPaused;
 
+    public MinesSweeperGame(int rows, int columns, int totalAmountMines, String userName) {
+        this.minesSweeperBoard = new MinesSweeperBoard(rows, columns);
+        this.userName = userName;
+        this.moves = 0;
+        this.isPaused = false;
+    }
+
+    /*
+        if (totalAmountMines > rows * columns) {
+            return "There are to many mines for this board.";
+        }
+    */
+    public MinesSweeperBoard getMinesSweeperBoard() {
+        return minesSweeperBoard;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void pauseGame() {
+        this.isPaused = !isPaused;
+    }
 }

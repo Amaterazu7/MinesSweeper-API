@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public interface MinesSweeperGameService {
     /**
      * Given a user name, count of rows, count of columns and count mines,
-     * will be create a new MineSweeper Game.
+     * will be create a new MineSweeperGame.
      *
      * @param minesSweeperRequest
      * @return MinesSweeperGame
@@ -16,7 +16,7 @@ public interface MinesSweeperGameService {
     MinesSweeperGame createMinesSweeperGame(MinesSweeperRequest minesSweeperRequest);
     /**
      * Given a user name, count of rows, count of columns and count mines,
-     * will be create a new MineSweeper Game.
+     * will be create a new MineSweeperGame.
      *
      * @param userName
      * @return MinesSweeperGame

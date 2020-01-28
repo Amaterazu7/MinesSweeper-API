@@ -1,5 +1,6 @@
 package com.exercice.minesweeper.service.impl;
 
+import com.exercice.minesweeper.exception.MinesSweeperException;
 import com.exercice.minesweeper.model.MinesSweeperGame;
 import com.exercice.minesweeper.model.MinesSweeperRequest;
 import com.exercice.minesweeper.repository.MinesSweeperGameRepository;
@@ -22,10 +23,11 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
 
             return null;
         } catch(Exception ex) {
-
+            throw new MinesSweeperException(String.format("ERROR :: Error creating a new game for username = ", minesSweeperRequest.getUserName()), ex);
         }
     }
 
+    @Override
     public MinesSweeperGame getGameByUserName(String userName) {
         return null;
     }
