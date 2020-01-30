@@ -62,15 +62,15 @@ public class MinesSweeperGameController {
     @GetMapping("/resume/{GameId}")
     @ResponseBody
     @ResponseStatus
-    @ApiOperation(value = "Return MinesSweeperGame by GameId", response = MinesSweeperGame.class)
+    @ApiOperation(value = "Return MinesSweeperGame by gameId", response = MinesSweeperGame.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    public ResponseEntity<?> getMinesSweeperGameById(@PathVariable String GameId) {
-        return ResponseEntity.ok(minesSweeperGameService.getGameById(GameId));
+    public ResponseEntity<?> getMinesSweeperGameById(@PathVariable String gameId) {
+        return ResponseEntity.ok(minesSweeperGameService.getGameById(gameId));
     }
 
     @GetMapping("{userName}")
@@ -91,22 +91,24 @@ public class MinesSweeperGameController {
     public ResponseEntity setRedFlag(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
         try {
             // Given the userName in the url path, set the flag in row and column.
-            return ResponseEntity.ok(minesSweeperGameService.setMovement(userName, playRequest, MoveType.RED_FLAG));
+            return ResponseEntity.ok(minesSweeperGameService.saveMovement(userName, minesSweeperGame));
         } catch (MinesSweeperException mse) {
-            log.error(":: ERROR :: Failed to set a red flag in row::", playRequest.getRow(),
-                            " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
+            log.error(":: ERROR :: Failed to save the minesSweeperGame with Id::", minesSweeperGame.getId(),
+                            " for username::", userName, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }
 
-    @PutMapping(value = "/set/{userName}/questionSymbol",  consumes = "application/json")
-    public ResponseEntity setQuestionSymbol(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
+    @ResponseBody
+    @ResponseStatus
+    @ApiOperation(value = "Return the paused Game", response = MinesSweeperGame.class)
+    @PutMapping(value = "/pause/{gameId}", consumes = "application/json")
+    public ResponseEntity pauseGame(@PathVariable String gameId) {
         try {
-            // Given the userName in the url path, set the question symbol in row and column.
-            return ResponseEntity.ok(minesSweeperGameService.setMovement(userName, playRequest, MoveType.QUESTION_SYMBOL));
+            // Given the userName in the url path, set the flag in row and column.
+            return ResponseEntity.ok(minesSweeperGameService.pauseGame(gameId));
         } catch (MinesSweeperException mse) {
-            log.error(":: ERROR :: Failed to set a question symbol in row::", playRequest.getRow(),
-                            " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
+            log.error(":: ERROR :: Failed to pause the minesSweeperGame with Id::", gameId, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }
@@ -120,7 +122,6 @@ public class MinesSweeperGameController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-
     @DeleteMapping(value = "/stop/{id}")
     public ResponseEntity gameOver(@PathVariable String id) {
         try {

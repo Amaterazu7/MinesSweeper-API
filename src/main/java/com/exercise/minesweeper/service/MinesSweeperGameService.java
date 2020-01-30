@@ -1,9 +1,7 @@
 package com.exercise.minesweeper.service;
 
 import com.exercise.minesweeper.model.MinesSweeperGame;
-import com.exercise.minesweeper.model.MinesSweeperPlayRequest;
 import com.exercise.minesweeper.model.MinesSweeperRequest;
-import com.exercise.minesweeper.model.MoveType;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,13 +15,13 @@ public interface MinesSweeperGameService {
      */
     MinesSweeperGame createMinesSweeperGame(MinesSweeperRequest minesSweeperRequest);
     /**
-     * Given a id,
+     * Given a gameId,
      * will retrieve an MineSweeperGame.
      *
-     * @param id
+     * @param gameId
      * @return MinesSweeperGame
      */
-    MinesSweeperGame getGameById(String id);
+    MinesSweeperGame getGameById(String gameId);
     /**
      * Given a user name,
      * will retrieve an MineSweeperGame.
@@ -32,23 +30,22 @@ public interface MinesSweeperGameService {
      * @return MinesSweeperGame
      */
     MinesSweeperGame getGameByUserName(String userName);
-
     /**
-     * Given a user name and an play request,
-     * will be create a new MinesSweeperPlayRequest.
+     * Given a user name, minesSweeperGame
+     * will be save the new movement of MineSweeperGame.
      *
-     * @param userName, playRequest, move
-     * @return MinesSweeperPlayRequest
+     * @param userName, MinesSweeperGame
+     * @return MinesSweeperGame
      */
-    MinesSweeperPlayRequest playMinesSweeper(String userName, MinesSweeperPlayRequest playRequest);
+    MinesSweeperGame saveMovement(String userName, MinesSweeperGame minesSweeperGame);
     /**
-     * Given a user name, count of rows, count of columns and count mines,
-     * will be create a new MineSweeperGame.
+     * Given a gameId
+     * will be pause the MineSweeperGame.
      *
-     * @param userName, playRequest, move
-     * @return MinesSweeperPlayRequest
+     * @param gameId
+     * @return MinesSweeperGame
      */
-    MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move);
+    MinesSweeperGame pauseGame(String gameId);
     /**
      * Given a user name,
      * will be delete the current MineSweeperGame.

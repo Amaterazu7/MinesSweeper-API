@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -69,8 +68,7 @@ public class MinesSweeperBoard extends BaseModel {
     }
 
     /*
-    public List<Square> getNeighbors(Square square) {
-
-    }
+    * Make the neighbors values or get ir to the frontend
+    public List<Square> getNeighbors(Square square) {  }
     */
 }

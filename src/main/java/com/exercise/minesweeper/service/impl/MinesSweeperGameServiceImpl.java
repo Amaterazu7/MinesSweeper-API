@@ -9,7 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -50,6 +54,7 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     @Override
     public MinesSweeperGame getGameById(String id) {
         validateEmpty(id);
+        validateGame(id);
         return minesSweeperGameRepository.findById(id)
                 .orElseThrow(() -> new MinesSweeperException(
                         String.format(":: Service ERROR :: There's no current game for this Id::", id)
@@ -63,27 +68,41 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     }
 
     @Override
-    public MinesSweeperPlayRequest playMinesSweeper(String userName, MinesSweeperPlayRequest playRequest) {
+    public MinesSweeperGame saveMovement(String userName, MinesSweeperGame minesSweeperGame) {
         validateEmpty(userName);
-        return null;
+        validateGame(minesSweeperGame.getId());
+        minesSweeperGame.onChange();
+        minesSweeperGame.getMinesSweeperBoard().onChange();
+        minesSweeperGame.increaseMoves();
+        return persistMinesSweeperGame(minesSweeperGame, minesSweeperGame.getMinesSweeperBoard());
     }
 
     @Override
-    public MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move) {
-        validateEmpty(userName);
-        return null;
+    public MinesSweeperGame pauseGame(String gameId) {
+        validateGame(gameId);
+        MinesSweeperGame minesSweeperGame = minesSweeperGameRepository.findById(gameId).get();
+        minesSweeperGame.onChange();
+        minesSweeperGame.getMinesSweeperBoard().onChange();
+        minesSweeperGame.pauseGame();
+        return persistMinesSweeperGame(minesSweeperGame, minesSweeperGame.getMinesSweeperBoard());
     }
 
     @Override
     public void gameOver(String id) {
         validateEmpty(id);
+        validateGame(id);
         minesSweeperGameRepository.deleteById(id);
     }
 
-    private void validateEmpty(final String userName){
+    private void validateEmpty(final String userName) {
         if(Objects.isNull(userName)) {
-            throw new MinesSweeperException("UserName can not be NULL");
+            throw new MinesSweeperException("User name can not be NULL.");
         }
     }
 
+    private void validateGame(final String gameId) {
+        if(Objects.isNull(minesSweeperGameRepository.findById(gameId))) {
+            throw new MinesSweeperException("This game is not Exist for this gameId.");
+        }
+    }
 }

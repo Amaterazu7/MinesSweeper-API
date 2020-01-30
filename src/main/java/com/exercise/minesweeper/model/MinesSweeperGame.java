@@ -7,13 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /*
  * An MinesSweeperGame have only one MinesSweeperBoard and int count of moves.
@@ -42,12 +38,15 @@ public class MinesSweeperGame extends BaseModel {
      * Sets the total amount of mines given by the user and put it randomly in that square position
      */
     public void setMinesOnBoard() {
-        Collections.shuffle(minesSweeperBoard.getSquares());
-
+        // If already is a mine we not set the square
         Random rand = new Random();
-        for (int i = 0; i < minesSweeperBoard.getMines(); i++) {
-            int index = minesSweeperBoard.getRows() * minesSweeperBoard.getColumns();
-            minesSweeperBoard.getSquares().get(rand.nextInt(index)).setMine();
+        int index = minesSweeperBoard.getRows() * minesSweeperBoard.getColumns();
+        for (int i = 0; i < minesSweeperBoard.getMines();) {
+            int randomIndex = rand.nextInt(index);
+            if(!minesSweeperBoard.getSquares().get(randomIndex).isMine()) {
+                minesSweeperBoard.getSquares().get(randomIndex).setMine();
+                i++;
+            }
         }
     }
 
@@ -67,13 +66,7 @@ public class MinesSweeperGame extends BaseModel {
         return this.moves;
     }
 
-    private void increaseMoves() {
-        this.moves++;
-    }
-
-    public void setMoves(int moves) {
-        this.moves = moves;
-    }
+    public void increaseMoves() { this.moves++; }
 
     public boolean isPaused() {
         return isPaused;

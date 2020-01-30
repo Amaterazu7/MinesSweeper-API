@@ -1,4 +1,16 @@
 # MinesSweeper API
+
+* Install docker
+* Run this command on the directory:
+
+`` docker image build -t docker-boot-minesweeper . ``
+
+* run the application:
+
+`` docker container run -p 8080:8080 docker-boot-minesweeper ``
+
+
+# MinesSweeper API - Deviget
 API test
 
 We ask that you complete the following challenge to evaluate your development skills. Please use the programming language and framework discussed during your interview to accomplish the following task.
@@ -13,7 +25,7 @@ Develop the classic game of [Minesweeper](https://en.wikipedia.org/wiki/Mineswee
 
 ## What to build
 The following is a list of items (prioritized from most important to least important) we wish to see:
-* Design and implement  a documented RESTful API for the game (think of a mobile app for your API)
+* Design and implement  a documented RESTFull API for the game (think of a mobile app for your API)
 * Implement an API client library for the API designed above. Ideally, in a different language, of your preference, to the one used for the API
 * When a cell with no adjacent mines is revealed, all adjacent squares will be revealed (and repeat)
 * Ability to 'flag' a cell with a question mark or red flag

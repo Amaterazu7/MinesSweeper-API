@@ -28,6 +28,14 @@ public class Square extends BaseModel {
         this.isFlagged = isFlagged;
     }
 
+    public Square getObject(int row, int column) {
+        if (this.getRow()==row && this.getColumn()==column) {
+            return this;
+        } else {
+            return null;
+        }
+    }
+
     public int getRow() {
         return row;
     }
