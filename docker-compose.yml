@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    image: docker-boot-minesweeper
+    container_name: docker-boot-minesweeper
+    build: ./
+    working_dir: /app
+    environment:
+      - "LANG=en_US.UTF-8"
+      - "LANGUAGE=en_US.UTF-8"
+    expose:
+      - 8080
+    command: mvn clean spring-boot:run
