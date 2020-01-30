@@ -1,8 +1,7 @@
-com/exercise/minesweeper/model/MinesSweeperPlayRequest.class
 com/exercise/minesweeper/config/SwaggerConfig.class
 com/exercise/minesweeper/service/impl/MinesSweeperGameServiceImpl.class
+com/exercise/minesweeper/repository/MinesSweeperBoardRepository.class
 com/exercise/minesweeper/model/MinesSweeperRequest.class
-com/exercise/minesweeper/model/MoveType.class
 com/exercise/minesweeper/MinesweeperApplication.class
 com/exercise/minesweeper/config/MongoConfig.class
 com/exercise/minesweeper/exception/MinesSweeperException.class

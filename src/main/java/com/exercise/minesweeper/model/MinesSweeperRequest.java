@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "MinesSweeperRequest Class. ")
+@ApiModel(description = "MinesSweeperRequest Class to create a new game.")
 public class MinesSweeperRequest {
     private String userName;
     private int rows, columns, mines;

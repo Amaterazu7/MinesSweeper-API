@@ -16,7 +16,7 @@ import java.util.Random;
  * The user can configure the game setting the value of rows, cols and mines
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel(description = "Class MinesSweeperGame.")
+@ApiModel(description = "MinesSweeperGame Class to save all the states of the game.")
 @Document(collection = "minesSweeperGame")
 @Data
 @Getter

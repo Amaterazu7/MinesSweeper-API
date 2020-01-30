@@ -14,7 +14,7 @@ import java.util.List;
  * user can configure a game for that reason the game can set the value of rows, cols and mines
  *
  */
-@ApiModel(description = "Class MinesSweeperBoard.")
+@ApiModel(description = "MinesSweeperBoard Class to handle the states of each board.")
 @Document(collection = "minesSweeperBoard")
 @Data
 @Getter
@@ -41,14 +41,6 @@ public class MinesSweeperBoard extends BaseModel {
             }
         }
         return squares;
-    }
-
-    public Square getSquare(int row, int column) {
-        return this.squares.get(row * this.rows + column);
-    }
-
-    public void setSquares(List<Square> squares) {
-        this.squares = squares;
     }
 
     public List<Square> getSquares() {

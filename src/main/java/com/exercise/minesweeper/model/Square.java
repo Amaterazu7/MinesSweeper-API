@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@ApiModel(description = "Class Square.")
+@ApiModel(description = "Square Class to save the states of each square in the game.")
 @Document(collection = "Square")
 @Data
 @Getter

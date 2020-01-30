@@ -1,13 +1,23 @@
 # MinesSweeper API
+* Spring-boot REST API application to play MinesSweeper, this one save every move of the game status on an spring boot embedded MongoDB as a JSON document. I decided make it that way because REST microservices must be stateless, and a this app create, delete and save all the status of the game, given to the front end side the responsibility of the present and play the game.   
 
-* Install docker
-* Run this command on the directory:
+### Running the APP
+* You can run the application installing the dependencies with Maven and then launch the app file:
+
+`` com.exercise.minesweeper.MinesweeperApplication ``
+
+* Or you can install docker and run this command on the directory in order to create a docker image:
 
 `` docker image build -t docker-boot-minesweeper . ``
 
-* run the application:
+* and the run the application on a docker container:
 
 `` docker container run -p 8080:8080 docker-boot-minesweeper ``
+
+* when the application is started you can go to:
+      
+        * http://localhost:8080/swagger-ui.html#/
+  and see all the documentation about it.
 
 
 # MinesSweeper API - Deviget

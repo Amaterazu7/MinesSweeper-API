@@ -2,9 +2,7 @@ package com.exercise.minesweeper.controller;
 
 import com.exercise.minesweeper.exception.MinesSweeperException;
 import com.exercise.minesweeper.model.MinesSweeperGame;
-import com.exercise.minesweeper.model.MinesSweeperPlayRequest;
 import com.exercise.minesweeper.model.MinesSweeperRequest;
-import com.exercise.minesweeper.model.MoveType;
 import com.exercise.minesweeper.service.MinesSweeperGameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Api(value="MinesWeeper Game Controller", description="Let's start playing the MinesWeeper game")
+@Api(value="MinesWeeper Game", description="Let's start playing the MinesWeeper game")
 @RestController
 @Validated
 @Slf4j
@@ -48,18 +46,7 @@ public class MinesSweeperGameController {
         }
     }
 
-    @PostMapping(value = "/playGame/{userName}",  consumes = "application/json")
-    public ResponseEntity playGame(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
-        try {
-            // Given the userName in the url path, execute the movement with row, column to that game.
-            return ResponseEntity.ok(minesSweeperGameService.playMinesSweeper(userName, playRequest));
-        } catch (MinesSweeperException mse) {
-            log.error(":: ERROR :: Failed to move to play for username::", userName, " exception::", mse);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
-        }
-    }
-
-    @GetMapping("/resume/{GameId}")
+    @GetMapping("/resume/{gameId}")
     @ResponseBody
     @ResponseStatus
     @ApiOperation(value = "Return MinesSweeperGame by gameId", response = MinesSweeperGame.class)
@@ -87,8 +74,11 @@ public class MinesSweeperGameController {
         return ResponseEntity.ok(minesSweeperGameService.getGameByUserName(userName));
     }
 
-    @PutMapping(value = "/set/{userName}/redFlag", consumes = "application/json")
-    public ResponseEntity setRedFlag(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
+    @ResponseBody
+    @ResponseStatus
+    @ApiOperation(value = "Return the saved Game", response = MinesSweeperGame.class)
+    @PutMapping(value = "/save/{userName}", consumes = "application/json")
+    public ResponseEntity saveGame(@Valid @RequestBody MinesSweeperGame minesSweeperGame, @PathVariable String userName) {
         try {
             // Given the userName in the url path, set the flag in row and column.
             return ResponseEntity.ok(minesSweeperGameService.saveMovement(userName, minesSweeperGame));
@@ -115,7 +105,7 @@ public class MinesSweeperGameController {
 
     @ResponseBody
     @ResponseStatus
-    @ApiOperation(value = "Return OK Game Over", response = MinesSweeperGame.class)
+    @ApiOperation(value = "Return OK if the Game is Over", response = MinesSweeperGame.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully deleted"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
