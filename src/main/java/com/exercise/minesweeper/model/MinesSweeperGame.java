@@ -41,12 +41,14 @@ public class MinesSweeperGame extends BaseModel {
     /*
      * Sets the total amount of mines given by the user and put it randomly in that square position
      */
-    private void setMinesOnBoard(int mines) {
-        new ArrayList<>(minesSweeperBoard.getSquares())
-                .stream()
-                .limit(mines)
-                .forEach(Square::setMine);
+    public void setMinesOnBoard() {
         Collections.shuffle(minesSweeperBoard.getSquares());
+
+        Random rand = new Random();
+        for (int i = 0; i < minesSweeperBoard.getMines(); i++) {
+            int index = minesSweeperBoard.getRows() * minesSweeperBoard.getColumns();
+            minesSweeperBoard.getSquares().get(rand.nextInt(index)).setMine();
+        }
     }
 
     public MinesSweeperBoard getMinesSweeperBoard() {
