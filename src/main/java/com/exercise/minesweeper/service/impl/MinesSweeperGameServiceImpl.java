@@ -27,21 +27,23 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     @Override
     public MinesSweeperGame createMinesSweeperGame(MinesSweeperRequest minesSweeperRequest) {
         try {
-            return persistMinesSweeperGame(
-                    new MinesSweeperGame(
-                            minesSweeperRequest.getRows(),
-                            minesSweeperRequest.getColumns(),
-                            minesSweeperRequest.getMines(),
-                            minesSweeperRequest.getUserName()
-                    )
+            MinesSweeperBoard minesSweeperBoard = new MinesSweeperBoard(
+                    minesSweeperRequest.getColumns(), minesSweeperRequest.getRows(), minesSweeperRequest.getMines()
             );
+            MinesSweeperGame minesSweeperGame = new MinesSweeperGame(
+                    minesSweeperRequest.getUserName(), minesSweeperBoard
+            );
+            minesSweeperGame.setMinesOnBoard(minesSweeperBoard.getMines());
+
+            return persistMinesSweeperGame(minesSweeperGame, minesSweeperBoard);
 
         } catch(Exception ex) {
             throw new MinesSweeperException(String.format("ERROR :: Error creating a new game for userName = ", minesSweeperRequest.getUserName()), ex);
         }
     }
 
-    private MinesSweeperGame persistMinesSweeperGame(MinesSweeperGame minesSweeperGame) {
+    private MinesSweeperGame persistMinesSweeperGame(MinesSweeperGame minesSweeperGame, MinesSweeperBoard minesSweeperBoard) {
+        minesSweeperBoardRepository.save(minesSweeperBoard);
         return minesSweeperGameRepository.save(minesSweeperGame);
     }
 
@@ -61,6 +63,18 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     public MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move) {
         validateEmpty(userName);
         return null;
+    }
+
+    @Override
+    public void gameOver(String id) {
+        validateEmpty(id);
+        minesSweeperGameRepository.deleteById(id);
+    }
+
+    private void validateEmpty(final String userName){
+        if(Objects.isNull(userName)) {
+            throw new MinesSweeperException("UserName can not be NULL");
+        }
     }
 
 }

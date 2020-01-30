@@ -49,4 +49,12 @@ public interface MinesSweeperGameService {
      * @return MinesSweeperPlayRequest
      */
     MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move);
+    /**
+     * Given a user name,
+     * will be delete the current MineSweeperGame.
+     *
+     * @param userName
+     * @return void
+     */
+    void gameOver(String userName);
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin
 @Api(value="MinesWeeper Game Controller", description="Let's start playing the MinesWeeper game")
 @RestController
 @Validated
