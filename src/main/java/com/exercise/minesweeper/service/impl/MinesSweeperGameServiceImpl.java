@@ -1,10 +1,8 @@
 package com.exercise.minesweeper.service.impl;
 
 import com.exercise.minesweeper.exception.MinesSweeperException;
-import com.exercise.minesweeper.model.MinesSweeperGame;
-import com.exercise.minesweeper.model.MinesSweeperPlayRequest;
-import com.exercise.minesweeper.model.MinesSweeperRequest;
-import com.exercise.minesweeper.model.MoveType;
+import com.exercise.minesweeper.model.*;
+import com.exercise.minesweeper.repository.MinesSweeperBoardRepository;
 import com.exercise.minesweeper.repository.MinesSweeperGameRepository;
 import com.exercise.minesweeper.service.MinesSweeperGameService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +15,13 @@ import java.util.Objects;
 @Service
 public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     private final MinesSweeperGameRepository minesSweeperGameRepository;
+    private final MinesSweeperBoardRepository minesSweeperBoardRepository;
 
     @Autowired
-    MinesSweeperGameServiceImpl(MinesSweeperGameRepository minesSweeperGameRepository) {
+    MinesSweeperGameServiceImpl(MinesSweeperGameRepository minesSweeperGameRepository,
+                                MinesSweeperBoardRepository minesSweeperBoardRepository) {
         this.minesSweeperGameRepository = minesSweeperGameRepository;
+        this.minesSweeperBoardRepository = minesSweeperBoardRepository;
     }
 
     @Override
@@ -46,28 +47,19 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
 
     @Override
     public MinesSweeperGame getGameByUserName(String userName) {
-        validateUserName(userName);
-        return minesSweeperGameRepository.findById(userName)
-                .orElseThrow(() -> new MinesSweeperException(
-                        String.format(":: Service ERROR :: There's no current game for this userName::", userName)
-                ));
-    }
-
-    private void validateUserName(final String userName){
-        if(Objects.isNull(userName)){
-            throw new MinesSweeperException("UserName can not be NULL");
-        }
+        validateEmpty(userName);
+        return minesSweeperGameRepository.findByUserName(userName);
     }
 
     @Override
     public MinesSweeperPlayRequest playMinesSweeper(String userName, MinesSweeperPlayRequest playRequest) {
-        validateUserName(userName);
+        validateEmpty(userName);
         return null;
     }
 
     @Override
     public MinesSweeperPlayRequest setMovement(String userName, MinesSweeperPlayRequest playRequest, MoveType move) {
-        validateUserName(userName);
+        validateEmpty(userName);
         return null;
     }
 

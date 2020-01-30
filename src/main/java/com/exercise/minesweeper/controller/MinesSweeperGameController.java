@@ -33,13 +33,18 @@ public class MinesSweeperGameController {
         this.minesSweeperGameService = minesSweeperGameService;
     }
 
+    @ResponseBody
+    @ResponseStatus
+    @ApiOperation(value = "Return MinesSweeperGame created", response = MinesSweeperGame.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfully created")
+    })
     @PostMapping(value="/createGame", consumes = "application/json")
     public ResponseEntity createGame(@Valid @RequestBody MinesSweeperRequest gameRequest) {
         try {
-
             return ResponseEntity.status(HttpStatus.CREATED).body(minesSweeperGameService.createMinesSweeperGame(gameRequest));
         } catch (MinesSweeperException mse) {
-            // log.error(":: ERROR :: Failed to create a new game exception::", mse);
+            log.error(":: ERROR :: Failed to create a new game exception::", mse);
             return ResponseEntity.status(HttpStatus.CONFLICT).body(mse.getMessage());
         }
     }
@@ -50,7 +55,7 @@ public class MinesSweeperGameController {
             // Given the userName in the url path, execute the movement with row, column to that game.
             return ResponseEntity.ok(minesSweeperGameService.playMinesSweeper(userName, playRequest));
         } catch (MinesSweeperException mse) {
-            // log.error(":: ERROR :: Failed to move to play for username::", userName, " exception::", mse);
+            log.error(":: ERROR :: Failed to move to play for username::", userName, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }
@@ -67,6 +72,7 @@ public class MinesSweeperGameController {
     })
     public ResponseEntity<?> getMinesSweeperGame(@PathVariable String userName) {
         return ResponseEntity.ok(minesSweeperGameService.getGameByUserName(userName));
+        // return ResponseEntity.ok(minesSweeperGameService.getGameById(userName));
     }
 
 
@@ -76,8 +82,8 @@ public class MinesSweeperGameController {
             // Given the userName in the url path, set the flag in row and column.
             return ResponseEntity.ok(minesSweeperGameService.setMovement(userName, playRequest, MoveType.RED_FLAG));
         } catch (MinesSweeperException mse) {
-            // log.error(":: ERROR :: Failed to set a red flag in row::", playRequest.getRow(),
-                            // " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
+            log.error(":: ERROR :: Failed to set a red flag in row::", playRequest.getRow(),
+                            " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }
@@ -88,8 +94,8 @@ public class MinesSweeperGameController {
             // Given the userName in the url path, set the question symbol in row and column.
             return ResponseEntity.ok(minesSweeperGameService.setMovement(userName, playRequest, MoveType.QUESTION_SYMBOL));
         } catch (MinesSweeperException mse) {
-            // log.error(":: ERROR :: Failed to set a question symbol in row::", playRequest.getRow(),
-                            // " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
+            log.error(":: ERROR :: Failed to set a question symbol in row::", playRequest.getRow(),
+                            " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }

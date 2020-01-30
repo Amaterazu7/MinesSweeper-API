@@ -17,16 +17,25 @@ public interface MinesSweeperGameService {
      */
     MinesSweeperGame createMinesSweeperGame(MinesSweeperRequest minesSweeperRequest);
     /**
-     * Given a user name, count of rows, count of columns and count mines,
-     * will be create a new MineSweeperGame.
+     * Given a id,
+     * will retrieve an MineSweeperGame.
+     *
+     * @param id
+     * @return MinesSweeperGame
+     */
+    MinesSweeperGame getGameById(String id);
+    /**
+     * Given a user name,
+     * will retrieve an MineSweeperGame.
      *
      * @param userName
      * @return MinesSweeperGame
      */
     MinesSweeperGame getGameByUserName(String userName);
+
     /**
-     * Given a user name, count of rows, count of columns and count mines,
-     * will be create a new MineSweeperGame.
+     * Given a user name and an play request,
+     * will be create a new MinesSweeperPlayRequest.
      *
      * @param userName, playRequest, move
      * @return MinesSweeperPlayRequest

@@ -19,13 +19,14 @@ import java.util.Collections;
 @Getter
 @Setter
 public class MinesSweeperGame extends BaseModel {
-    private final MinesSweeperBoard minesSweeperBoard;
+    @Indexed(unique = true)
     private String userName;
-    private int moves;
-    private boolean isPaused;
+    private int moves = 0;
+    private boolean isPaused = false;
+    private final MinesSweeperBoard minesSweeperBoard;
 
-    public MinesSweeperGame(int rows, int columns, int totalAmountMines, String userName) {
-        this.minesSweeperBoard = new MinesSweeperBoard(rows, columns);
+    @PersistenceConstructor
+    public MinesSweeperGame(String userName, MinesSweeperBoard minesSweeperBoard) {
         this.userName = userName;
         this.moves = 0;
         this.isPaused = false;
