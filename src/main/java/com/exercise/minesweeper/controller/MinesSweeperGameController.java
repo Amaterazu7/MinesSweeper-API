@@ -59,6 +59,20 @@ public class MinesSweeperGameController {
         }
     }
 
+    @GetMapping("/resume/{GameId}")
+    @ResponseBody
+    @ResponseStatus
+    @ApiOperation(value = "Return MinesSweeperGame by GameId", response = MinesSweeperGame.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    public ResponseEntity<?> getMinesSweeperGameById(@PathVariable String GameId) {
+        return ResponseEntity.ok(minesSweeperGameService.getGameById(GameId));
+    }
+
     @GetMapping("{userName}")
     @ResponseBody
     @ResponseStatus
@@ -71,9 +85,7 @@ public class MinesSweeperGameController {
     })
     public ResponseEntity<?> getMinesSweeperGame(@PathVariable String userName) {
         return ResponseEntity.ok(minesSweeperGameService.getGameByUserName(userName));
-        // return ResponseEntity.ok(minesSweeperGameService.getGameById(userName));
     }
-
 
     @PutMapping(value = "/set/{userName}/redFlag", consumes = "application/json")
     public ResponseEntity setRedFlag(@Valid @RequestBody MinesSweeperPlayRequest playRequest, @PathVariable String userName) {
@@ -95,6 +107,28 @@ public class MinesSweeperGameController {
         } catch (MinesSweeperException mse) {
             log.error(":: ERROR :: Failed to set a question symbol in row::", playRequest.getRow(),
                             " column::", playRequest.getColumn(), " for username::", userName, " exception::", mse);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @ResponseStatus
+    @ApiOperation(value = "Return OK Game Over", response = MinesSweeperGame.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully deleted"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+
+    @DeleteMapping(value = "/stop/{id}")
+    public ResponseEntity gameOver(@PathVariable String id) {
+        try {
+            // Given the userName in the url path, finish and delete the game.
+            minesSweeperGameService.gameOver(id);
+            return ResponseEntity.ok(HttpStatus.OK);
+        } catch (MinesSweeperException mse) {
+            log.error(":: ERROR :: Failed to delete the game for this id::", id, " exception::", mse);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mse.getMessage());
         }
     }

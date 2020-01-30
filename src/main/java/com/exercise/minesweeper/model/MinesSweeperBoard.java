@@ -1,6 +1,5 @@
 package com.exercise.minesweeper.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.Getter;
@@ -17,7 +16,8 @@ import java.util.List;
  *
  */
 @ApiModel(description = "Class MinesSweeperBoard.")
-@Document
+@Document(collection = "minesSweeperBoard")
+@Data
 @Getter
 @Setter
 public class MinesSweeperBoard extends BaseModel {
@@ -26,9 +26,11 @@ public class MinesSweeperBoard extends BaseModel {
     private final int mines;
     private List<Square> squares;
 
-    public MinesSweeperBoard(int columns, int rows) {
-        this.columnsQuantity = columns;
-        this.rowsQuantity = rows;
+    @PersistenceConstructor
+    public MinesSweeperBoard(int columns, int rows, int mines) {
+        this.columns = columns;
+        this.rows = rows;
+        this.mines = mines;
         this.squares = launchSquares(columns, rows);
     }
 
@@ -46,16 +48,24 @@ public class MinesSweeperBoard extends BaseModel {
         return this.squares.get(row * this.rows + column);
     }
 
+    public void setSquares(List<Square> squares) {
+        this.squares = squares;
+    }
+
     public List<Square> getSquares() {
         return new ArrayList<>(this.squares);
     }
 
-    public int getColumnsQuantity() {
-        return columnsQuantity;
+    public int getColumns() {
+        return columns;
     }
 
-    public int getRowsQuantity() {
-        return rowsQuantity;
+    public int getRows() {
+        return rows;
+    }
+
+    public int getMines() {
+        return mines;
     }
 
     /*

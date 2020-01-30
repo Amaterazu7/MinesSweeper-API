@@ -2,12 +2,18 @@ package com.exercise.minesweeper.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /*
  * An MinesSweeperGame have only one MinesSweeperBoard and int count of moves.
@@ -15,7 +21,8 @@ import java.util.Collections;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(description = "Class MinesSweeperGame.")
-@Document
+@Document(collection = "minesSweeperGame")
+@Data
 @Getter
 @Setter
 public class MinesSweeperGame extends BaseModel {
@@ -28,9 +35,7 @@ public class MinesSweeperGame extends BaseModel {
     @PersistenceConstructor
     public MinesSweeperGame(String userName, MinesSweeperBoard minesSweeperBoard) {
         this.userName = userName;
-        this.moves = 0;
-        this.isPaused = false;
-        setMinesOnBoard(totalAmountMines);
+        this.minesSweeperBoard = minesSweeperBoard;
     }
 
     /*

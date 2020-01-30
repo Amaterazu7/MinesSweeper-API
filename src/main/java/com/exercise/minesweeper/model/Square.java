@@ -1,10 +1,14 @@
 package com.exercise.minesweeper.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@ApiModel(description = "Class Square.")
+@Document(collection = "Square")
+@Data
 @Getter
 @Setter
 public class Square extends BaseModel {
@@ -15,9 +19,13 @@ public class Square extends BaseModel {
     private boolean wasOpen;
     private boolean isFlagged;
 
-    public Square(int row, int column) {
+    public Square(int row, int column, int value, boolean isMine, boolean wasOpen, boolean isFlagged) {
         this.row = row;
         this.column = column;
+        this.value = value;
+        this.isMine = isMine;
+        this.wasOpen = wasOpen;
+        this.isFlagged = isFlagged;
     }
 
     public int getRow() {

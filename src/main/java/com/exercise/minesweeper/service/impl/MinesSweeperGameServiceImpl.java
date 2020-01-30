@@ -33,7 +33,7 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
             MinesSweeperGame minesSweeperGame = new MinesSweeperGame(
                     minesSweeperRequest.getUserName(), minesSweeperBoard
             );
-            minesSweeperGame.setMinesOnBoard(minesSweeperBoard.getMines());
+            minesSweeperGame.setMinesOnBoard();
 
             return persistMinesSweeperGame(minesSweeperGame, minesSweeperBoard);
 
@@ -45,6 +45,15 @@ public class MinesSweeperGameServiceImpl implements MinesSweeperGameService {
     private MinesSweeperGame persistMinesSweeperGame(MinesSweeperGame minesSweeperGame, MinesSweeperBoard minesSweeperBoard) {
         minesSweeperBoardRepository.save(minesSweeperBoard);
         return minesSweeperGameRepository.save(minesSweeperGame);
+    }
+
+    @Override
+    public MinesSweeperGame getGameById(String id) {
+        validateEmpty(id);
+        return minesSweeperGameRepository.findById(id)
+                .orElseThrow(() -> new MinesSweeperException(
+                        String.format(":: Service ERROR :: There's no current game for this Id::", id)
+                ));
     }
 
     @Override
