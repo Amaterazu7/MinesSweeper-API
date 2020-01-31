@@ -10,9 +10,13 @@
 
 `` docker image build -t docker-boot-minesweeper . ``
 
-* and the run the application on a docker container:
+* and the run the application on a docker container with the docker compose file:
 
-`` docker container run -p 8080:8080 docker-boot-minesweeper ``
+`` docker-compose up ``
+
+* if you don't want to see any log on you terminal you can run this:
+
+`` docker-compose up -d ``
 
 * when the application is started you can go to:
       
