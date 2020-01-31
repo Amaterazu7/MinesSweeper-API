@@ -23,7 +23,7 @@
         * http://localhost:8080/swagger-ui.html#/
   and see all the documentation about it.
   
-` Please remember that you need to leave the ":8080" port free to run the application. `  
+` Please, remember that you need to leave the ":8080" port free to run the application. `  
 
 
 # MinesSweeper API - Deviget Code Challenge
